@@ -4,8 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarModule } from 'angular-calendar';
 
 import { EventCalendarViewComponent } from './components/event-calendar-view/event-calendar-view.component';
 import { EventsViewComponent } from './components/events-view/events-view.component';
@@ -23,10 +22,7 @@ import { MonthSelectComponent } from './components/month-select/month-select.com
         MatIconModule,
         MatButtonModule,
         MatDividerModule,
-        CalendarModule.forRoot({
-            provide: DateAdapter,
-            useFactory: adapterFactory,
-        }),
+        CalendarModule,
     ],
     providers: [TitleCasePipe],
     exports: [
