@@ -13,6 +13,7 @@ Support only 'fr' date format for now.
 - Create the real README
 - Create the contributor file
 - Work on issues and evolution
+- Generate documentation using compodoc
 
 # Known Issues :
 - Depends on Angular material for the following components ('mat-button', 'mat-divider', 'mat-toggle-button')
