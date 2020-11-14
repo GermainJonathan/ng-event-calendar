@@ -1,5 +1,5 @@
 import { CommonModule, TitleCasePipe } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
@@ -29,6 +29,7 @@ import { MonthSelectComponent } from './components/month-select/month-select.com
         EventCalendarViewComponent,
         EventsViewComponent,
         MonthSelectComponent,
-    ]
+    ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class EventsCalendarModule {}
