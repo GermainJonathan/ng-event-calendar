@@ -1,0 +1,12 @@
+.gridMonths {
+  display: grid;
+  grid-template-columns: [first] 33% [line2] 33% [line3] auto;
+}
+
+.monthSelect {
+  margin: 1%;
+  height: 160px;
+  &:hover {
+    background-color: rgba(0,0,0,.1);
+  }
+}

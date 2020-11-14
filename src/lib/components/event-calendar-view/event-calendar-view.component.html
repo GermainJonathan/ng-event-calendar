@@ -1,0 +1,53 @@
+<div class="viewSelector">
+    <mat-button-toggle-group [disabled]="monthSelect" #group="matButtonToggleGroup">
+        <mat-button-toggle value="mounth" [checked]="true" (click)="setView(CalendarView.Month)">
+          <mat-icon>view_module</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="week" (click)="setView(CalendarView.Week)">
+          <mat-icon>view_week</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="day" (click)="setView(CalendarView.Day)">
+          <mat-icon>view_agenda</mat-icon>
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>
+<div class="calendarHeader">
+    <button mat-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (click)="periodChange()"><mat-icon>navigate_before</mat-icon></button>
+    <h2 style="margin: 10px 0 10px 0;" [ngStyle]="{'cursor': view === CalendarView.Month ? 'auto' : 'pointer'}" (click)="toggleWithMonthSelect()">
+      {{ viewDate | calendarDate:(view + 'ViewTitle'):locale:weekStartsOn}}
+    </h2>
+    <button mat-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (click)="periodChange()"><mat-icon>navigate_next</mat-icon></button>
+</div>
+<evt-ca-month-select *ngIf="monthSelect" [yearView]="actualYearView" (monthChanged)="monthSelected($event)"></evt-ca-month-select>
+<div>
+    <mwl-calendar-week-view [ngStyle]="{'display': view == CalendarView.Week ? 'unset' : 'none'}" [viewDate]="viewDate" [weekStartsOn]="weekStartsOn" [locale]="locale" [refresh]="refresh" [headerTemplate]="defaultWeekHeaderTemplate" (dayHeaderClicked)="handleWeekClicker($event.day)" (beforeViewRender)="beforeWeekViewRender($event)"></mwl-calendar-week-view>
+    <mwl-calendar-month-view [ngStyle]="{'display': (view == CalendarView.Week || view == CalendarView.Day || monthSelect) ? 'none' : 'unset'}" [cellTemplate]="customCellTemplate" [viewDate]="viewDate" [locale]="locale" [weekStartsOn]="weekStartsOn" [refresh]="refresh" (dayClicked)="handlerMonthClicker($event.day)" (beforeViewRender)="beforeMonthViewRender($event)"></mwl-calendar-month-view>
+</div>
+
+<evt-ca-events-view [events]="eventsDisplayed"></evt-ca-events-view>
+
+<ng-template #defaultWeekHeaderTemplate let-days="days" let-locale="locale" let-trackByWeekDayHeaderDate="trackByWeekDayHeaderDate" let-dayHeaderClicked="dayHeaderClicked">
+    <div class="cal-day-headers" role="row">
+        <div class="cal-header" *ngFor="let day of days; trackBy: trackByWeekDayHeaderDate" (mwlClick)="dayHeaderClicked.emit({ day: day, sourceEvent: $event })" [class.cal-past]="day.isPast" [class.cal-today]="day.isToday" [class.cal-future]="day.isFuture" [class.cal-weekend]="day.isWeekend" [ngClass]="day.cssClass" tabindex="0" role="columnheader">
+            <b>{{ day.date | calendarDate: 'weekViewColumnHeader':locale }}</b><br />
+            <span>{{ day.date | calendarDate: 'weekViewColumnSubHeader':locale }}</span>
+            <div *ngIf="day.events && day.events.length > 0" class="weekBadgeContainer">
+                <div *ngFor="let event of day.events" class="badge" style="height: 6px; width: 6px;" [ngStyle]="{'background': event.color ? event.color : '#0b5999'}">
+                    <!-- <span>{{day.events.length > 1 ? day.events.length : ''}}</span> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <div class="cal-cell-top">
+        <span class="cal-day-badge" *ngIf="day && day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+        <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+        <div style="display: inline-flex; justify-content: center;">
+            <div *ngFor="let event of day.events" class="badge" [ngStyle]="{'background': event.color ? event.color : '#0b5999'}">
+                <!-- <span>{{day.events.length > 1 ? day.events.length : ''}}</span> -->
+            </div>
+        </div>
+    </div>
+</ng-template>

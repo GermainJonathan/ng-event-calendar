@@ -1,0 +1,56 @@
+.container {
+    //   background: #fff;
+      border-color: #ccc;
+      display: flex;
+      flex-direction: column;
+      line-height: 3em;
+      min-height: 200px;
+      max-height: 500px;
+      overflow-y: scroll;
+    }
+
+    .timeEvent {
+      font-size: .75em;
+      min-width: 7em;
+      margin: 0px 0px 0px 1em;
+      text-align: center;
+    }
+
+    .eventView {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .mat-divider.mat-divider-vertical {
+      border-right-width: 2px;
+      margin: .5em 1em .5em 1em;
+      border-radius: 10px;
+      max-height: 6em;
+    }
+
+    .eventheader {
+        background: #efeff4;
+        color: #707070;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        padding: .5em 1em;
+        line-height: 1.5em;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        margin: 0;
+      }
+
+    .eventBody {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .title {
+        font-weight: 500;
+    }
+
+    .description {
+        font-size: 75%;
+        line-height: 2em;
+    }

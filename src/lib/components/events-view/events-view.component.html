@@ -1,0 +1,18 @@
+<div class="container">
+    <div *ngFor="let event of events">
+        <div class="eventheader" *ngIf="isHeaderAlreadyGenerated(event)">{{event.start | date:'dd MMMM y'}}</div>
+        <div class="eventView">
+            <div class="timeEvent">
+              <span *ngIf="!event.allDay">{{event.start | date:'H:mm'}}</span>
+              <span *ngIf="!event.allDay">{{event.end | date:'H:mm'}}</span>
+              <span *ngIf="event.allDay">Toute la journée</span>
+            </div>
+            <mat-divider [ngStyle]="{'border-right-color' : event.color ? event.color : 'inherit'}" [vertical]="true"></mat-divider>
+            <div class='eventBody'>
+                <span class="title">{{event.title}}</span>
+                <label *ngIf="event.place" style="font-size: .8em; line-height: 1em;"><mat-icon style="font-size: 1em;">place</mat-icon>{{event.place}}</label>
+                <p class="description">{{event.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>
